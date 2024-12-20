@@ -37,9 +37,7 @@ This is a feature-rich Bookstore App built using React, Node.js, Express, MongoD
      ```bash
      PORT=4001
      MONGO_URI=your_mongodb_connection_string
-     JWT_SECRET=your_jwt_secret_key
      ```
-   - Replace `your_mongodb_connection_string` and `your_jwt_secret_key` with your values.
 
 4. Start the app:
 

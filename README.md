@@ -1,7 +1,3 @@
-Here's a README file for your Bookstore App:
-
----
-
 # Welcome to the Bookstore App 📚
 
 This is a feature-rich Bookstore App built using React, Node.js, Express, MongoDB, and Axios for seamless interaction between the client and server.

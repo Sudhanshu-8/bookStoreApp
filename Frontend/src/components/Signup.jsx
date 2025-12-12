@@ -4,10 +4,12 @@ import Login from "./Login";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthProvider";
 function Signup() {
-    const location=useLocation();
-    const navigate = useNavigate();
-    const from = location.state?.from?.pathname || "/";
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+  const [authUser, setAuthUser] = useAuth();
 
   const {
     register,
@@ -22,18 +24,17 @@ function Signup() {
       password: data.password,
     };
     await axios
-      .post("http://localhost:4001/user/signup", userInfo)
+      .post("http://localhost:4002/user/signup", userInfo)
       .then((res) => {
-        console.log(res.data);
         if (res.data) {
           toast.success("Signup Successfully");
-          navigate(from,{ replace : true});
+          localStorage.setItem("Users", JSON.stringify(res.data.user));
+          setAuthUser(res.data.user);
+          navigate(from, { replace: true });
         }
-        localStorage.setItem("Users",JSON.stringify(res.data.user));
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err);
           toast.error("error: " + err.response.data.message);
         }
       });
@@ -93,7 +94,7 @@ function Signup() {
                 <span>Password</span>
                 <br />
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Enter your password"
                   className="w-80 px-3 py-1 border rounded-md outline-none"
                   {...register("password", { required: true })}

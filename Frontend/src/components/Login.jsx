@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthProvider";
 function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [authUser, setAuthUser] = useAuth();
 
   const onSubmit = async (data) => {
     const userInfo = {
@@ -16,23 +18,18 @@ function Login() {
       password: data.password,
     };
     await axios
-      .post("http://localhost:4001/user/login", userInfo)
+      .post("http://localhost:4002/user/login", userInfo)
       .then((res) => {
-        console.log(res.data);
         if (res.data) {
-          toast.success('Logined in Successfully');
+          toast.success("Logined in Successfully");
+          localStorage.setItem("Users", JSON.stringify(res.data.user));
+          setAuthUser(res.data.user);
           document.getElementById("my_modal_3").close();
-          setTimeout(() =>{
-            window.location.reload();
-            localStorage.setItem("Users",JSON.stringify(res.data.user));
-          },1000);
         }
       })
       .catch((err) => {
         if (err.response) {
-          console.log(err);
           toast.error("error: " + err.response.data.message);
-          setTimeout(()=>{},1000);
         }
       }); // You can handle form data here
   };
@@ -62,7 +59,7 @@ function Login() {
                 className="w-80 px-3 py-1 border rounded-md outline-none"
                 {...register("email", { required: "Email is required" })}
               />
-              <br/>
+              <br />
               {errors.email && (
                 <span className="text-red-500 text-sm">
                   {errors.email.message}
@@ -78,7 +75,7 @@ function Login() {
                 className="w-80 px-3 py-1 border rounded-md outline-none"
                 {...register("password", { required: "Password is required" })}
               />
-              <br/>
+              <br />
               {errors.password && (
                 <span className="text-red-500 text-sm">
                   {errors.password.message}

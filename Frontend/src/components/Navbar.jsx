@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
@@ -40,10 +41,10 @@ function Navbar() {
   const navItems = (
     <>
       <li>
-        <a href="/">Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a href="/Course">Course</a>
+        <Link to="/Course">Course</Link>
       </li>
       <li>
         <a>Contact</a>
@@ -56,7 +57,7 @@ function Navbar() {
   return (
     <>
       <div
-        className={`max-w-screen-2xl container mx-auto md:px-20 px-4 dark:bg-slate-900 dark:text-white fixed top-0 left-0 right-0 z-50 ${
+        className={`max-w-screen-2xl container mx-auto md:px-20 px-4 dark:bg-slate-900 dark:text-white fixed top-0 left-0 right-0 z-50 bg-base-100 ${
           sticky
             ? "sticky-navbar shadow-md bg-base-300 dark:bg-slate-600 dark:text-white duration-300 transition-all ease-in-out"
             : ""
@@ -99,7 +100,7 @@ function Navbar() {
               <ul className="menu menu-horizontal px-1">{navItems} </ul>
             </div>
             <div className="hidden md:block">
-              <label className=" ppx-3 py-2 border rounded-md flex items-center gap-2">
+              <label className=" px-3 py-2 border rounded-md flex items-center gap-2">
                 <input
                   type="text"
                   className="grow outline-none dark:bg-slate-900 dark:text-white"
